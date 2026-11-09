@@ -1,0 +1,19 @@
+aws_region         = "ap-south-1"
+environment        = "dev"
+project_name       = "three-tier"
+instance_type      = "t3.micro"
+web_instance_count = 2
+
+key_name           = "REPLACE-WITH-YOUR-KEYPAIR"
+ssh_allowed_cidr   = "REPLACE-WITH-YOUR-IP/32"
+bucket_name_suffix = "REPLACE-WITH-UNIQUE-SUFFIX"
+
+# Toggle expensive features on/off
+enable_nat_gateway = false
+enable_alb         = false
+enable_app_tier    = false
+enable_db_tier     = false
+
+# Only relevant when enable_db_tier = true
+db_username = "appadmin"
+# db_password = "set via TF_VAR_db_password env var"
