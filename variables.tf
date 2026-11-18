@@ -53,20 +53,20 @@ variable "private_subnets" {
 }
 
 # ---------- Security ----------
-variable "key_name" {
-  description = "Existing EC2 key pair name for SSH (required, no default)"
-  type        = string
-}
+#variable "key_name" {
+#  description = "Existing EC2 key pair name for SSH (required, no default)"
+#  type        = string
+#}
 
-variable "ssh_allowed_cidr" {
-  description = "CIDR allowed to SSH. Set to YOUR_IP/32. Do NOT use 0.0.0.0/0."
-  type        = string
+#variable "ssh_allowed_cidr" {
+#  description = "CIDR allowed to SSH. Set to YOUR_IP/32. Do NOT use 0.0.0.0/0."
+#  type        = string
 
-  validation {
-    condition     = var.ssh_allowed_cidr != "0.0.0.0/0"
-    error_message = "Do not open SSH to the world. Use your IP/32."
-  }
-}
+#  validation {
+#    condition     = var.ssh_allowed_cidr != "0.0.0.0/0"
+#    error_message = "Do not open SSH to the world. Use your IP/32."
+#  }
+#}
 
 # ---------- Compute ----------
 variable "instance_type" {

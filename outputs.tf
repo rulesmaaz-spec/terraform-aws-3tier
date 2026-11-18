@@ -62,15 +62,15 @@ output "s3_bucket_arn" {
 output "deployment_summary" {
   description = "Human-readable summary"
   value = {
-    environment    = var.environment
-    region         = var.aws_region
-    web_count      = var.web_instance_count
-    app_count      = var.enable_app_tier ? var.app_instance_count : 0
-    db_enabled     = var.enable_db_tier
-    alb_enabled    = var.enable_alb
-    nat_enabled    = var.enable_nat_gateway
-    web_urls       = { for k, v in aws_instance.web : k => "http://${v.public_ip}" }
-    alb_url        = var.enable_alb ? "http://${aws_lb.web[0].dns_name}" : null
+    environment = var.environment
+    region      = var.aws_region
+    web_count   = var.web_instance_count
+    app_count   = var.enable_app_tier ? var.app_instance_count : 0
+    db_enabled  = var.enable_db_tier
+    alb_enabled = var.enable_alb
+    nat_enabled = var.enable_nat_gateway
+    web_urls    = { for k, v in aws_instance.web : k => "http://${v.public_ip}" }
+    alb_url     = var.enable_alb ? "http://${aws_lb.web[0].dns_name}" : null
   }
 }
 

@@ -6,7 +6,8 @@ resource "aws_instance" "web" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public[each.value.subnet_index].id
   vpc_security_group_ids = [aws_security_group.web.id]
-  key_name               = var.key_name
+  iam_instance_profile   = aws_iam_instance_profile.ec2.name
+# key_name               = var.key_name
 
   root_block_device {
     volume_type           = "gp3"
@@ -41,7 +42,8 @@ resource "aws_instance" "app" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.private[each.value.subnet_index].id
   vpc_security_group_ids = [aws_security_group.app[0].id]
-  key_name               = var.key_name
+# key_name               = var.key_name
+  iam_instance_profile   = aws_iam_instance_profile.ec2.name 
 
   root_block_device {
     volume_type           = "gp3"

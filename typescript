@@ -1,0 +1,2814 @@
+Script started on 2026-11-18 15:00:39+05:30 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="112" LINES="23"]
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[4mt[24m[4mt[4me[24m[4mt[4me[4mr[24m[4mr[4mr[24m[4mr[4ma[24m[4ma[4mf[24m[4mf[4mo[24m[4mo[4mr[24m[8D[24m[32mt[24m[32me[24m[32mr[24m[32mr[24m[32ma[24m[32mf[24m[32mo[24m[32mr[32mm[39m [4mv[24m[4mv[4ma[24m[24mv[24malidate[?1l>[?2004l
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[4mt[24m[4mt[24m[90merraform validate[39m[17D[4mt[39m[4me[24m[4mt[4me[39m[4mr[24m[4mr[39m[4mr[24m[4mr[39m[4ma[24m[4ma[39m[4mf[24m[4mf[39m[4mo[24m[4mo[39m[4mr[24m[8D[24m[32mt[24m[32me[24m[32mr[24m[32mr[24m[32ma[24m[32mf[24m[32mo[24m[32mr[32mm[39m[39m [39m[4mi[24m[39m [39m [39m [39m [39m [39m [39m [24minit[?1l>[?2004l
+[0m[1mInitializing the backend...[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Reusing version 5.100.0 of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v5.100.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[4mt[24m[4mt[24m[90merraform init[39m[13D[4mt[39m[4me[24m[4mt[4me[39m[4mr[24m[4mr[39m[4mr[24m[4mr[39m[4ma[24m[4ma[39m[4mf[24m[24m[1m[31mt[24m[1m[31me[24m[1m[31mr[24m[1m[31mr[24m[1m[31ma[24m[1m[31mf[1m[31mi[0m[39m[39m [39m [39m [39m [39m [39m [39m [1m[31mi[1m[31mr[0m[39m[1m[31mi[0m[39m[0m[39m [0m[39m[4mt[0m[39m[4me[0m[39m[4mr[0m[39m[4mr[0m[39m[4ma[0m[39m[4mf[24m[0m[39m [90morm init[39m[8D[4mf[39m[4mo[24m[4mo[39m[4mr[24m[8D[24m[32mt[24m[32me[24m[32mr[24m[32mr[24m[32ma[24m[32mf[24m[32mo[24m[32mr[32mm[39m[39m [39m[4mp[24m[39m [39m [39m [24mplan -var-filr e =terraform.tfvars[?1l>[?2004l
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mdata.aws_ami.ubuntu: Reading...[0m[0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 0s [id=ap-south-1][0m
+[0m[1mdata.aws_ami.ubuntu: Read complete after 1s [id=ami-009a37f62c7ea3f0a][0m
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_instance_profile.ec2[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_instance_profile" "ec2" {
+      [32m+[0m[0m arn         = (known after apply)
+      [32m+[0m[0m create_date = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m path        = "/"
+      [32m+[0m[0m role        = "three-tier-dev-ec2-role"
+      [32m+[0m[0m tags_all    = (known after apply)
+      [32m+[0m[0m unique_id   = (known after apply)
+    }
+
+[1m  # aws_iam_role.ec2[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "ec2" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "three-tier-dev-ec2-role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # aws_iam_role_policy_attachment.ec2_ssm[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "ec2_ssm" {
+      [32m+[0m[0m id         = (known after apply)
+      [32m+[0m[0m policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      [32m+[0m[0m role       = "three-tier-dev-ec2-role"
+    }
+
+[1m  # aws_instance.web["web-1"][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-009a37f62c7ea3f0a"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m enable_primary_ipv6                  = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t3.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = (known after apply)
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "5b7bafc2f7085d358dc603eb8191aaa5e9cebd1f"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device {
+          [32m+[0m[0m delete_on_termination = true
+          [32m+[0m[0m device_name           = (known after apply)
+          [32m+[0m[0m encrypted             = true
+          [32m+[0m[0m iops                  = (known after apply)
+          [32m+[0m[0m kms_key_id            = (known after apply)
+          [32m+[0m[0m tags                  = {
+              [32m+[0m[0m "Environment" = "dev"
+              [32m+[0m[0m "ManagedBy"   = "terraform"
+              [32m+[0m[0m "Name"        = "three-tier-dev-web-1-root"
+              [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+              [32m+[0m[0m "Project"     = "three-tier"
+            }
+          [32m+[0m[0m tags_all              = (known after apply)
+          [32m+[0m[0m throughput            = (known after apply)
+          [32m+[0m[0m volume_id             = (known after apply)
+          [32m+[0m[0m volume_size           = 20
+          [32m+[0m[0m volume_type           = "gp3"
+        }
+    }
+
+[1m  # aws_instance.web["web-2"][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-009a37f62c7ea3f0a"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m enable_primary_ipv6                  = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t3.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = (known after apply)
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "11826c98ec42cd380fbdbac3c1e750e76b8db4de"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device {
+          [32m+[0m[0m delete_on_termination = true
+          [32m+[0m[0m device_name           = (known after apply)
+          [32m+[0m[0m encrypted             = true
+          [32m+[0m[0m iops                  = (known after apply)
+          [32m+[0m[0m kms_key_id            = (known after apply)
+          [32m+[0m[0m tags                  = {
+              [32m+[0m[0m "Environment" = "dev"
+              [32m+[0m[0m "ManagedBy"   = "terraform"
+              [32m+[0m[0m "Name"        = "three-tier-dev-web-2-root"
+              [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+              [32m+[0m[0m "Project"     = "three-tier"
+            }
+          [32m+[0m[0m tags_all              = (known after apply)
+          [32m+[0m[0m throughput            = (known after apply)
+          [32m+[0m[0m volume_id             = (known after apply)
+          [32m+[0m[0m volume_size           = 20
+          [32m+[0m[0m volume_type           = "gp3"
+        }
+    }
+
+[1m  # aws_internet_gateway.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "main" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-igw"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-igw"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # aws_route_table.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "private" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "private" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table.public[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "public" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_block                 = "0.0.0.0/0"
+              [32m+[0m[0m gateway_id                 = (known after apply)
+                [90m# (11 unchanged attributes hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_s3_bucket.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket" "assets" {
+      [32m+[0m[0m acceleration_status         = (known after apply)
+      [32m+[0m[0m acl                         = (known after apply)
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m bucket                      = "three-tier-assets-terraform-3tier-mohammad"
+      [32m+[0m[0m bucket_domain_name          = (known after apply)
+      [32m+[0m[0m bucket_prefix               = (known after apply)
+      [32m+[0m[0m bucket_regional_domain_name = (known after apply)
+      [32m+[0m[0m force_destroy               = false
+      [32m+[0m[0m hosted_zone_id              = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m object_lock_enabled         = (known after apply)
+      [32m+[0m[0m policy                      = (known after apply)
+      [32m+[0m[0m region                      = (known after apply)
+      [32m+[0m[0m request_payer               = (known after apply)
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m website_domain              = (known after apply)
+      [32m+[0m[0m website_endpoint            = (known after apply)
+
+      [32m+[0m[0m cors_rule (known after apply)
+
+      [32m+[0m[0m grant (known after apply)
+
+      [32m+[0m[0m lifecycle_rule (known after apply)
+
+      [32m+[0m[0m logging (known after apply)
+
+      [32m+[0m[0m object_lock_configuration (known after apply)
+
+      [32m+[0m[0m replication_configuration (known after apply)
+
+      [32m+[0m[0m server_side_encryption_configuration (known after apply)
+
+      [32m+[0m[0m versioning (known after apply)
+
+      [32m+[0m[0m website (known after apply)
+    }
+
+[1m  # aws_s3_bucket_lifecycle_configuration.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_lifecycle_configuration" "assets" {
+      [32m+[0m[0m bucket                                 = (known after apply)
+      [32m+[0m[0m expected_bucket_owner                  = (known after apply)
+      [32m+[0m[0m id                                     = (known after apply)
+      [32m+[0m[0m transition_default_minimum_object_size = "all_storage_classes_128K"
+
+      [32m+[0m[0m rule {
+          [32m+[0m[0m id     = "expire-noncurrent-versions"
+          [32m+[0m[0m status = "Enabled"
+            [90m# (1 unchanged attribute hidden)[0m[0m
+
+          [32m+[0m[0m filter {
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+
+          [32m+[0m[0m noncurrent_version_expiration {
+              [32m+[0m[0m noncurrent_days = 30
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_policy.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_policy" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+      [32m+[0m[0m policy = (known after apply)
+    }
+
+[1m  # aws_s3_bucket_public_access_block.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_public_access_block" "assets" {
+      [32m+[0m[0m block_public_acls       = true
+      [32m+[0m[0m block_public_policy     = true
+      [32m+[0m[0m bucket                  = (known after apply)
+      [32m+[0m[0m id                      = (known after apply)
+      [32m+[0m[0m ignore_public_acls      = true
+      [32m+[0m[0m restrict_public_buckets = true
+    }
+
+[1m  # aws_s3_bucket_server_side_encryption_configuration.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+
+      [32m+[0m[0m rule {
+          [32m+[0m[0m apply_server_side_encryption_by_default {
+              [32m+[0m[0m sse_algorithm     = "AES256"
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_versioning.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_versioning" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+
+      [32m+[0m[0m versioning_configuration {
+          [32m+[0m[0m mfa_delete = (known after apply)
+          [32m+[0m[0m status     = "Enabled"
+        }
+    }
+
+[1m  # aws_security_group.web[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "web" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Tier 1 - SSH from admin, HTTP from anywhere"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m description      = "All outbound"
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m description      = "HTTP from anywhere"
+              [32m+[0m[0m from_port        = 80
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 80
+            },
+        ]
+      [32m+[0m[0m name                   = "three-tier-dev-web-sg"
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # aws_subnet.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.2.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.4.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.3.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.0.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-vpc"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-vpc"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+    }
+
+[1mPlan:[0m [0m25 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  [32m+[0m[0m alb_dns_name       = ""
+  [32m+[0m[0m alb_url            = ""
+  [32m+[0m[0m app_instance_ids   = {}
+  [32m+[0m[0m deployment_summary = {
+      [32m+[0m[0m alb_enabled = false
+      [32m+[0m[0m alb_url     = [90mnull[0m[0m
+      [32m+[0m[0m app_count   = 0
+      [32m+[0m[0m db_enabled  = false
+      [32m+[0m[0m environment = "dev"
+      [32m+[0m[0m nat_enabled = false
+      [32m+[0m[0m region      = "ap-south-1"
+      [32m+[0m[0m web_count   = 2
+      [32m+[0m[0m web_urls    = {
+          [32m+[0m[0m web-1 = (known after apply)
+          [32m+[0m[0m web-2 = (known after apply)
+        }
+    }
+  [32m+[0m[0m private_subnet_ids = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m public_subnet_ids  = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m s3_bucket_arn      = (known after apply)
+  [32m+[0m[0m s3_bucket_name     = "three-tier-assets-terraform-3tier-mohammad"
+  [32m+[0m[0m vpc_id             = (known after apply)
+  [32m+[0m[0m web_instance_ids   = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+  [32m+[0m[0m web_public_ips     = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+  [32m+[0m[0m web_urls           = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+[90m
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these
+actions if you run "terraform apply" now.
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[4mt[24m[4mt[24m[90merraform plan -var-file=terraform.tfvars[39m[40D[24m[1m[31mt[1m[31ma[0m[39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39D[0m[32mt[0m[32ma[32mr[39m[1m[31mt[1m[31ma[1m[31mr[1m[31mr[0m[39m[0m[32mt[0m[32ma[0m[32mr[39m[0m[39m [1m[31mt[1m[31ma[0m[39m[39m [0m[39m[4mt[24m[0m[39m [4mt[24m[90merraform plan -var-file=terraform.tfvars[39m[40D[4mt[39m[4me[24m[4mt[4me[39m[4mr[24m[4mr[39m[4mr[24m[4mr[39m[4ma[24m[4ma[39m[4mf[24m[4mf[39m[4mo[24m[4mo[39m[4mr[24m[8D[24m[32mt[24m[32me[24m[32mr[24m[32mr[24m[32ma[24m[32mf[24m[32mo[24m[32mr[32mm[39m[39m [39ma[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [30Dpply -var-file=terraform.tfvars[?1l>[?2004l
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mdata.aws_ami.ubuntu: Reading...[0m[0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 0s [id=ap-south-1][0m
+[0m[1mdata.aws_ami.ubuntu: Read complete after 1s [id=ami-009a37f62c7ea3f0a][0m
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_instance_profile.ec2[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_instance_profile" "ec2" {
+      [32m+[0m[0m arn         = (known after apply)
+      [32m+[0m[0m create_date = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m path        = "/"
+      [32m+[0m[0m role        = "three-tier-dev-ec2-role"
+      [32m+[0m[0m tags_all    = (known after apply)
+      [32m+[0m[0m unique_id   = (known after apply)
+    }
+
+[1m  # aws_iam_role.ec2[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "ec2" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "three-tier-dev-ec2-role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # aws_iam_role_policy_attachment.ec2_ssm[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "ec2_ssm" {
+      [32m+[0m[0m id         = (known after apply)
+      [32m+[0m[0m policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      [32m+[0m[0m role       = "three-tier-dev-ec2-role"
+    }
+
+[1m  # aws_instance.web["web-1"][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-009a37f62c7ea3f0a"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m enable_primary_ipv6                  = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t3.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = (known after apply)
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "5b7bafc2f7085d358dc603eb8191aaa5e9cebd1f"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device {
+          [32m+[0m[0m delete_on_termination = true
+          [32m+[0m[0m device_name           = (known after apply)
+          [32m+[0m[0m encrypted             = true
+          [32m+[0m[0m iops                  = (known after apply)
+          [32m+[0m[0m kms_key_id            = (known after apply)
+          [32m+[0m[0m tags                  = {
+              [32m+[0m[0m "Environment" = "dev"
+              [32m+[0m[0m "ManagedBy"   = "terraform"
+              [32m+[0m[0m "Name"        = "three-tier-dev-web-1-root"
+              [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+              [32m+[0m[0m "Project"     = "three-tier"
+            }
+          [32m+[0m[0m tags_all              = (known after apply)
+          [32m+[0m[0m throughput            = (known after apply)
+          [32m+[0m[0m volume_id             = (known after apply)
+          [32m+[0m[0m volume_size           = 20
+          [32m+[0m[0m volume_type           = "gp3"
+        }
+    }
+
+[1m  # aws_instance.web["web-2"][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-009a37f62c7ea3f0a"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m enable_primary_ipv6                  = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t3.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = (known after apply)
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Role"        = "web"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "11826c98ec42cd380fbdbac3c1e750e76b8db4de"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device {
+          [32m+[0m[0m delete_on_termination = true
+          [32m+[0m[0m device_name           = (known after apply)
+          [32m+[0m[0m encrypted             = true
+          [32m+[0m[0m iops                  = (known after apply)
+          [32m+[0m[0m kms_key_id            = (known after apply)
+          [32m+[0m[0m tags                  = {
+              [32m+[0m[0m "Environment" = "dev"
+              [32m+[0m[0m "ManagedBy"   = "terraform"
+              [32m+[0m[0m "Name"        = "three-tier-dev-web-2-root"
+              [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+              [32m+[0m[0m "Project"     = "three-tier"
+            }
+          [32m+[0m[0m tags_all              = (known after apply)
+          [32m+[0m[0m throughput            = (known after apply)
+          [32m+[0m[0m volume_id             = (known after apply)
+          [32m+[0m[0m volume_size           = 20
+          [32m+[0m[0m volume_type           = "gp3"
+        }
+    }
+
+[1m  # aws_internet_gateway.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "main" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-igw"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-igw"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # aws_route_table.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "private" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "private" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table.public[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "public" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_block                 = "0.0.0.0/0"
+              [32m+[0m[0m gateway_id                 = (known after apply)
+                [90m# (11 unchanged attributes hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_s3_bucket.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket" "assets" {
+      [32m+[0m[0m acceleration_status         = (known after apply)
+      [32m+[0m[0m acl                         = (known after apply)
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m bucket                      = "three-tier-assets-terraform-3tier-mohammad"
+      [32m+[0m[0m bucket_domain_name          = (known after apply)
+      [32m+[0m[0m bucket_prefix               = (known after apply)
+      [32m+[0m[0m bucket_regional_domain_name = (known after apply)
+      [32m+[0m[0m force_destroy               = false
+      [32m+[0m[0m hosted_zone_id              = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m object_lock_enabled         = (known after apply)
+      [32m+[0m[0m policy                      = (known after apply)
+      [32m+[0m[0m region                      = (known after apply)
+      [32m+[0m[0m request_payer               = (known after apply)
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m website_domain              = (known after apply)
+      [32m+[0m[0m website_endpoint            = (known after apply)
+
+      [32m+[0m[0m cors_rule (known after apply)
+
+      [32m+[0m[0m grant (known after apply)
+
+      [32m+[0m[0m lifecycle_rule (known after apply)
+
+      [32m+[0m[0m logging (known after apply)
+
+      [32m+[0m[0m object_lock_configuration (known after apply)
+
+      [32m+[0m[0m replication_configuration (known after apply)
+
+      [32m+[0m[0m server_side_encryption_configuration (known after apply)
+
+      [32m+[0m[0m versioning (known after apply)
+
+      [32m+[0m[0m website (known after apply)
+    }
+
+[1m  # aws_s3_bucket_lifecycle_configuration.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_lifecycle_configuration" "assets" {
+      [32m+[0m[0m bucket                                 = (known after apply)
+      [32m+[0m[0m expected_bucket_owner                  = (known after apply)
+      [32m+[0m[0m id                                     = (known after apply)
+      [32m+[0m[0m transition_default_minimum_object_size = "all_storage_classes_128K"
+
+      [32m+[0m[0m rule {
+          [32m+[0m[0m id     = "expire-noncurrent-versions"
+          [32m+[0m[0m status = "Enabled"
+            [90m# (1 unchanged attribute hidden)[0m[0m
+
+          [32m+[0m[0m filter {
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+
+          [32m+[0m[0m noncurrent_version_expiration {
+              [32m+[0m[0m noncurrent_days = 30
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_policy.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_policy" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+      [32m+[0m[0m policy = (known after apply)
+    }
+
+[1m  # aws_s3_bucket_public_access_block.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_public_access_block" "assets" {
+      [32m+[0m[0m block_public_acls       = true
+      [32m+[0m[0m block_public_policy     = true
+      [32m+[0m[0m bucket                  = (known after apply)
+      [32m+[0m[0m id                      = (known after apply)
+      [32m+[0m[0m ignore_public_acls      = true
+      [32m+[0m[0m restrict_public_buckets = true
+    }
+
+[1m  # aws_s3_bucket_server_side_encryption_configuration.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+
+      [32m+[0m[0m rule {
+          [32m+[0m[0m apply_server_side_encryption_by_default {
+              [32m+[0m[0m sse_algorithm     = "AES256"
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_versioning.assets[0m will be created
+[0m  [32m+[0m[0m resource "aws_s3_bucket_versioning" "assets" {
+      [32m+[0m[0m bucket = (known after apply)
+      [32m+[0m[0m id     = (known after apply)
+
+      [32m+[0m[0m versioning_configuration {
+          [32m+[0m[0m mfa_delete = (known after apply)
+          [32m+[0m[0m status     = "Enabled"
+        }
+    }
+
+[1m  # aws_security_group.web[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "web" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Tier 1 - SSH from admin, HTTP from anywhere"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m description      = "All outbound"
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m description      = "HTTP from anywhere"
+              [32m+[0m[0m from_port        = 80
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 80
+            },
+        ]
+      [32m+[0m[0m name                   = "three-tier-dev-web-sg"
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "1"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # aws_subnet.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.2.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.4.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-private-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-1"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.3.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-public-2"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+          [32m+[0m[0m "Tier"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.0.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-vpc"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Name"        = "three-tier-dev-vpc"
+          [32m+[0m[0m "Owner"       = "Mohammad Maaz"
+          [32m+[0m[0m "Project"     = "three-tier"
+        }
+    }
+
+[1mPlan:[0m [0m25 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  [32m+[0m[0m alb_dns_name       = ""
+  [32m+[0m[0m alb_url            = ""
+  [32m+[0m[0m app_instance_ids   = {}
+  [32m+[0m[0m deployment_summary = {
+      [32m+[0m[0m alb_enabled = false
+      [32m+[0m[0m alb_url     = [90mnull[0m[0m
+      [32m+[0m[0m app_count   = 0
+      [32m+[0m[0m db_enabled  = false
+      [32m+[0m[0m environment = "dev"
+      [32m+[0m[0m nat_enabled = false
+      [32m+[0m[0m region      = "ap-south-1"
+      [32m+[0m[0m web_count   = 2
+      [32m+[0m[0m web_urls    = {
+          [32m+[0m[0m web-1 = (known after apply)
+          [32m+[0m[0m web-2 = (known after apply)
+        }
+    }
+  [32m+[0m[0m private_subnet_ids = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m public_subnet_ids  = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m s3_bucket_arn      = (known after apply)
+  [32m+[0m[0m s3_bucket_name     = "three-tier-assets-terraform-3tier-mohammad"
+  [32m+[0m[0m vpc_id             = (known after apply)
+  [32m+[0m[0m web_instance_ids   = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+  [32m+[0m[0m web_public_ips     = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+  [32m+[0m[0m web_urls           = {
+      [32m+[0m[0m web-1 = (known after apply)
+      [32m+[0m[0m web-2 = (known after apply)
+    }
+[0m[1m
+Do you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1maws_iam_role.ec2: Creating...[0m[0m
+[0m[1maws_vpc.main: Creating...[0m[0m
+[0m[1maws_s3_bucket.assets: Creating...[0m[0m
+[0m[1maws_iam_role.ec2: Creation complete after 3s [id=three-tier-dev-ec2-role][0m
+[0m[1maws_iam_role_policy_attachment.ec2_ssm: Creating...[0m[0m
+[0m[1maws_iam_instance_profile.ec2: Creating...[0m[0m
+[0m[1maws_s3_bucket.assets: Creation complete after 4s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_public_access_block.assets: Creating...[0m[0m
+[0m[1maws_s3_bucket_versioning.assets: Creating...[0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Creating...[0m[0m
+[0m[1maws_iam_role_policy_attachment.ec2_ssm: Creation complete after 1s [id=three-tier-dev-ec2-role-20261118093317047000000001][0m
+[0m[1maws_s3_bucket_public_access_block.assets: Creation complete after 0s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_policy.assets: Creating...[0m[0m
+[0m[1maws_s3_bucket_policy.assets: Creation complete after 0s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Creation complete after 1s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_versioning.assets: Creation complete after 2s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Creating...[0m[0m
+[0m[1maws_vpc.main: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_iam_instance_profile.ec2: Creation complete after 8s [id=three-tier-dev-ec2-profile][0m
+[0m[1maws_vpc.main: Creation complete after 13s [id=vpc-08c8ec61c754f7b74][0m
+[0m[1maws_route_table.private[0]: Creating...[0m[0m
+[0m[1maws_internet_gateway.main: Creating...[0m[0m
+[0m[1maws_subnet.public[0]: Creating...[0m[0m
+[0m[1maws_subnet.private[0]: Creating...[0m[0m
+[0m[1maws_route_table.private[1]: Creating...[0m[0m
+[0m[1maws_subnet.public[1]: Creating...[0m[0m
+[0m[1maws_subnet.private[1]: Creating...[0m[0m
+[0m[1maws_security_group.web: Creating...[0m[0m
+[0m[1maws_internet_gateway.main: Creation complete after 0s [id=igw-034c3439efbdd4d11][0m
+[0m[1maws_route_table.public: Creating...[0m[0m
+[0m[1maws_route_table.private[0]: Creation complete after 1s [id=rtb-0d08b6340da723db7][0m
+[0m[1maws_subnet.private[0]: Creation complete after 1s [id=subnet-0686888a917cc3fe0][0m
+[0m[1maws_route_table.private[1]: Creation complete after 1s [id=rtb-07dd80f74701cde9c][0m
+[0m[1maws_route_table.public: Creation complete after 2s [id=rtb-011ee88a70964c328][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_security_group.web: Creation complete after 3s [id=sg-077355ccbf35a89b6][0m
+[0m[1maws_subnet.private[1]: Creation complete after 3s [id=subnet-06bb924f0cb18ae76][0m
+[0m[1maws_route_table_association.private[0]: Creating...[0m[0m
+[0m[1maws_route_table_association.private[1]: Creating...[0m[0m
+[0m[1maws_route_table_association.private[1]: Creation complete after 1s [id=rtbassoc-03fd56288543029ba][0m
+[0m[1maws_route_table_association.private[0]: Creation complete after 1s [id=rtbassoc-0b3ceee56579c69f8][0m
+[0m[1maws_subnet.public[0]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public[1]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public[0]: Creation complete after 11s [id=subnet-047d7abc6cdc0c434][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Still creating... [00m20s elapsed][0m[0m
+[0m[1maws_subnet.public[1]: Creation complete after 14s [id=subnet-0e6024824e66f8f6d][0m
+[0m[1maws_route_table_association.public[1]: Creating...[0m[0m
+[0m[1maws_route_table_association.public[0]: Creating...[0m[0m
+[0m[1maws_instance.web["web-2"]: Creating...[0m[0m
+[0m[1maws_instance.web["web-1"]: Creating...[0m[0m
+[0m[1maws_route_table_association.public[1]: Creation complete after 1s [id=rtbassoc-0db108b34471118ce][0m
+[0m[1maws_route_table_association.public[0]: Creation complete after 1s [id=rtbassoc-0a356f0a1db5e73b0][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Still creating... [00m30s elapsed][0m[0m
+[0m[1maws_instance.web["web-2"]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_instance.web["web-1"]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_instance.web["web-1"]: Creation complete after 14s [id=i-0c2a8f2f0b49d6d7c][0m
+[0m[1maws_instance.web["web-2"]: Creation complete after 14s [id=i-074790fc45c96d6e3][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Still creating... [00m40s elapsed][0m[0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Still creating... [00m50s elapsed][0m[0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Creation complete after 57s [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1m[32m
+Apply complete! Resources: 25 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0malb_dns_name = ""
+alb_url = ""
+app_instance_ids = {}
+db_endpoint = <sensitive>
+deployment_summary = {
+  "alb_enabled" = false
+  "alb_url" = tostring(null)
+  "app_count" = 0
+  "db_enabled" = false
+  "environment" = "dev"
+  "nat_enabled" = false
+  "region" = "ap-south-1"
+  "web_count" = 2
+  "web_urls" = {
+    "web-1" = "http://3.110.81.93"
+    "web-2" = "http://65.0.135.150"
+  }
+}
+private_subnet_ids = [
+  "subnet-0686888a917cc3fe0",
+  "subnet-06bb924f0cb18ae76",
+]
+public_subnet_ids = [
+  "subnet-047d7abc6cdc0c434",
+  "subnet-0e6024824e66f8f6d",
+]
+s3_bucket_arn = "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad"
+s3_bucket_name = "three-tier-assets-terraform-3tier-mohammad"
+vpc_id = "vpc-08c8ec61c754f7b74"
+web_instance_ids = {
+  "web-1" = "i-0c2a8f2f0b49d6d7c"
+  "web-2" = "i-074790fc45c96d6e3"
+}
+web_public_ips = {
+  "web-1" = "3.110.81.93"
+  "web-2" = "65.0.135.150"
+}
+web_urls = {
+  "web-1" = "http://3.110.81.93"
+  "web-2" = "http://65.0.135.150"
+}
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[7m[32mterraform[39m[7m output -json web_urls | [7m[32mjq[27m[39m[36D[27m[32mt[27m[32me[27m[32mr[27m[32mr[27m[32ma[27m[32mf[27m[32mo[27m[32mr[27m[32mm[39m[27m [27mo[27mu[27mt[27mp[27mu[27mt[27m [27m-[27mj[27ms[27mo[27mn[27m [27mw[27me[27mb[27m_[27mu[27mr[27ml[27ms[27m [27m|[27m [27m[32mj[27m[32mq[39m[?1l>[?2004l
+[1;39m{
+  [0m[1;34m"web-1"[0m[1;39m: [0m[0;32m"http://3.110.81.93"[0m[1;39m,
+  [0m[1;34m"web-2"[0m[1;39m: [0m[0;32m"http://65.0.135.150"[0m[1;39m
+[1;39m}[0m
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[1m[7m[31murl[0m[39m[7m [7m[35m$([39m[7m[32mterraform[39m[7m output -json web_urls | [7m[32mjq[39m[7m -r [7m[33m'.["web-1"]'[39m[7m[35m)[39m[27m
+[K[K[A[50C[27m[1m[31mu[27m[1m[31mr[27m[1m[31ml[0m[39m[27m [27m[35m$[27m[35m([39m[27m[32mt[27m[32me[27m[32mr[27m[32mr[27m[32ma[27m[32mf[27m[32mo[27m[32mr[27m[32mm[39m[27m [27mo[27mu[27mt[27mp[27mu[27mt[27m [27m-[27mj[27ms[27mo[27mn[27m [27mw[27me[27mb[27m_[27mu[27mr[27ml[27ms[27m [27m|[27m [27m[32mj[27m[32mq[39m[27m [27m-[27mr[27m [27m[33m'[27m[33m.[27m[33m[[27m[33m"[27m[33mw[27m[33me[27m[33mb[27m[33m-[27m[33m1[27m[33m"[27m[33m][27m[33m'[39m[27m[35m)[39m[0m[32mc[0m[32mu[0m[32mr[32ml[39m[39m [35m$[35m([39m[32mt[32me[32mr[32mr[32ma[32mf[32mo[32mr[32mm[39m output -json web_urls |[39m [32mj[32mq[39m -r[39m [33m'[33m.[33m[[33m"[33mw[33me[33mb[33m-[33m1[33m"[33m][33m'[39m[35m)[39m[59D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1B[?1l>[?2004l
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>three-tier - dev</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 3rem; background: #ffffff; color: #000000; }
+    h1   { color: #000000; }
+    code { background: #f0f0f0; color: #000000; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to three-tier - dev</h1>
+  <p>Instance: <code>web-1</code></p>
+  <p>Hostname: <code>ip-10-0-1-138</code></p>
+  <p>AZ: <code>ap-south-1a</code></p>
+  <p>Deployed at: <code>2026-11-18T09:34:37Z</code></p>
+</body>
+</html>
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[4mc[24m[4mc[24m[90murl $(terraform output -json web_urls | jq -r '.["web-1"]')[39m
+[K[A[51C[24m[1m[31mc[1m[31mu[0m[39m[1B[K[A[52C[0m[32mc[0m[32mu[32mt[39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [1B[K[A[53C[1m[31mc[1m[31mu[0m[39m[39m [90mrl $(terraform output -json web_urls | jq -r '.["web-1"]')[1B[39m[K[A[52C[1m[31mc[1m[31mu[1m[31mr[0m[39m[1B[K[A[53C[0m[32mc[0m[32mu[0m[32mr[32ml[39m[39m [39m[7mh[39m[7mt[39m[7mt[39m[7mp[39m[7m:[39m[7m/[39m[7m/[39m[7m6[39m[7m5[39m[7m.[39m[7m0[39m[7m.[39m[7m1[39m[7m3[39m[7m5[39m[7m.[39m[7m1[39m[7m5[39m[7m0[27m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [1B[K[A[74C[19D[27mh[27mt[27mt[27mp[27m:[27m/[27m/[27m6[27m5[27m.[27m0[27m.[27m1[27m3[27m5[27m.[27m1[27m5[27m0[?1l>[?2004l[1B<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>three-tier - dev</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 3rem; background: #ffffff; color: #000000; }
+    h1   { color: #000000; }
+    code { background: #f0f0f0; color: #000000; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to three-tier - dev</h1>
+  <p>Instance: <code>web-2</code></p>
+  <p>Hostname: <code>ip-10-0-3-173</code></p>
+  <p>AZ: <code>ap-south-1b</code></p>
+  <p>Deployed at: <code>2026-11-18T09:34:42Z</code></p>
+</body>
+</html>
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[7m[32maws[39m[7m ssm start-session --target [7m[35m$([39m[7m[32mterraform[39m[7m output -json web_in[7ms[7mtance_ids | [7m[32mjq[39m[7m -r [7m[33m'.["web-1"]'[39m[7m[35m)[27m[39m[K[A[18C[27m[32ma[27m[32mw[27m[32ms[39m[27m [27ms[27ms[27mm[27m [27ms[27mt[27ma[27mr[27mt[27m-[27ms[27me[27ms[27ms[27mi[27mo[27mn[27m [27m-[27m-[27mt[27ma[27mr[27mg[27me[27mt[27m [27m[35m$[27m[35m([39m[27m[32mt[27m[32me[27m[32mr[27m[32mr[27m[32ma[27m[32mf[27m[32mo[27m[32mr[27m[32mm[39m[27m [27mo[27mu[27mt[27mp[27mu[27mt[27m [27m-[27mj[27ms[27mo[27mn[27m [27mw[27me[27mb[27m_[27mi[27mns[27mt[27ma[27mn[27mc[27me[27m_[27mi[27md[27ms[27m [27m|[27m [27m[32mj[27m[32mq[39m[27m [27m-[27mr[27m [27m[33m'[27m[33m.[27m[33m[[27m[33m"[27m[33mw[27m[33me[27m[33mb[27m[33m-[27m[33m1[27m[33m"[27m[33m][27m[33m'[39m[27m[35m)[39m[?1l>[?2004l
+
+Starting session with SessionId: admin-mohammad-jhi4tqgvvi82bi2elszc79grbi
+$ hostname && curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+ip-10-0-1-138
+ap-south-1a$ 
+$ exit
+
+
+Exiting session with sessionId: admin-mohammad-jhi4tqgvvi82bi2elszc79grbi.
+
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[1m[31ma[0m[39m[1m[31ma[0m[39m[90mws ssm start-session --target $(terraform output -json web_in[90ms[90mtance_ids | jq -r '.["web-1"]')[39m[K[A[19C[1m[31ma[1m[31mw[0m[39m[0m[32ma[0m[32mw[32ms[39m[39m [39m[4ms[24m[24ms[39ms[39mm[39m [39m[4ms[24m[4ms[39m[4mt[24m[24ms[24mt[39ma[39mr[39mt[39m-[39ms[39me[39ms[39ms[39mi[39mo[39mn[39m [39m-[39m-[39mt[39ma[39mr[39mg[39me[39mt[39m [35m$[35m([39m[32mt[32me[32mr[32mr[32ma[32mf[32mo[32mr[32mm[39m[39m [39mo[39mu[39mt[39mp[39mu[39mt[39m [39m-[39mj[39ms[39mo[39mn[39m [39mw[39me[39mb[39m_[39mi[39mns[39mt[39ma[39mn[39mc[39me[39m_[39mi[39md[39ms[39m [39m|[39m [32mj[32mq[39m[39m [39m-[39mr[39m [33m'[33m.[33m[[33m"[33mw[33me[33mb[33m-[33m1[33m"[33m][33m'[39m[35m)[39m[33m"[33m][33m'[39m[35m)[39m[39m [33m2[33m"[33m][33m'[39m[35m)[39m[1C[1C[1C[1C[?1l>[?2004l
+
+Starting session with SessionId: admin-mohammad-ogkp8q3teautdohsiza4gs2jgi
+$ hostname && curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+ip-10-0-3-173
+ap-south-1b$ 
+$ exi it
+
+
+Exiting session with sessionId: admin-mohammad-ogkp8q3teautdohsiza4gs2jgi.
+
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[7m[32maws[39m[7m s3 rm s3://[7m[35m$([39m[7m[32mterraform[39m[7m output -raw s3_bucket_name[7m[35m)[39m[7m --recur[7ms[7mive[27m[K[A[46C[27m[32ma[27m[32mw[27m[32ms[39m[27m [27ms[27m3[27m [27mr[27mm[27m [27ms[27m3[27m:[27m/[27m/[27m[35m$[27m[35m([39m[27m[32mt[27m[32me[27m[32mr[27m[32mr[27m[32ma[27m[32mf[27m[32mo[27m[32mr[27m[32mm[39m[27m [27mo[27mu[27mt[27mp[27mu[27mt[27m [27m-[27mr[27ma[27mw[27m [27ms[27m3[27m_[27mb[27mu[27mc[27mk[27me[27mt[27m_[27mn[27ma[27mm[27me[27m[35m)[39m[27m [27m-[27m-[27mr[27me[27mc[27mu[27mrs[27mi[27mv[27me[?1l>[?2004l
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[7m[32mterraform[39m[7m destroy -var-file=terraform.tfvars[27m[44D[27m[32mt[27m[32me[27m[32mr[27m[32mr[27m[32ma[27m[32mf[27m[32mo[27m[32mr[27m[32mm[39m[27m [27md[27me[27ms[27mt[27mr[27mo[27my[27m [27m-[27mv[27ma[27mr[27m-[27mf[27mi[27ml[27me[27m=[27mt[27me[27mr[27mr[27ma[27mf[27mo[27mr[27mm[27m.[27mt[27mf[27mv[27ma[27mr[27ms[?1l>[?2004l
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mdata.aws_ami.ubuntu: Reading...[0m[0m
+[0m[1maws_iam_role.ec2: Refreshing state... [id=three-tier-dev-ec2-role][0m
+[0m[1maws_vpc.main: Refreshing state... [id=vpc-08c8ec61c754f7b74][0m
+[0m[1maws_s3_bucket.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 0s [id=ap-south-1][0m
+[0m[1mdata.aws_ami.ubuntu: Read complete after 1s [id=ami-009a37f62c7ea3f0a][0m
+[0m[1maws_internet_gateway.main: Refreshing state... [id=igw-034c3439efbdd4d11][0m
+[0m[1maws_route_table.private[1]: Refreshing state... [id=rtb-07dd80f74701cde9c][0m
+[0m[1maws_route_table.private[0]: Refreshing state... [id=rtb-0d08b6340da723db7][0m
+[0m[1maws_subnet.private[0]: Refreshing state... [id=subnet-0686888a917cc3fe0][0m
+[0m[1maws_subnet.public[1]: Refreshing state... [id=subnet-0e6024824e66f8f6d][0m
+[0m[1maws_subnet.public[0]: Refreshing state... [id=subnet-047d7abc6cdc0c434][0m
+[0m[1maws_subnet.private[1]: Refreshing state... [id=subnet-06bb924f0cb18ae76][0m
+[0m[1maws_security_group.web: Refreshing state... [id=sg-077355ccbf35a89b6][0m
+[0m[1maws_route_table.public: Refreshing state... [id=rtb-011ee88a70964c328][0m
+[0m[1maws_s3_bucket_versioning.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_public_access_block.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0b3ceee56579c69f8][0m
+[0m[1maws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-03fd56288543029ba][0m
+[0m[1maws_s3_bucket_policy.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+[0m[1maws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0db108b34471118ce][0m
+[0m[1maws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0a356f0a1db5e73b0][0m
+[0m[1maws_iam_role_policy_attachment.ec2_ssm: Refreshing state... [id=three-tier-dev-ec2-role-20261118093317047000000001][0m
+[0m[1maws_iam_instance_profile.ec2: Refreshing state... [id=three-tier-dev-ec2-profile][0m
+[0m[1maws_instance.web["web-2"]: Refreshing state... [id=i-074790fc45c96d6e3][0m
+[0m[1maws_instance.web["web-1"]: Refreshing state... [id=i-0c2a8f2f0b49d6d7c][0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Refreshing state... [id=three-tier-assets-terraform-3tier-mohammad][0m
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_instance_profile.ec2[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_instance_profile" "ec2" {
+      [31m-[0m[0m arn         = "arn:aws:iam::908252070469:instance-profile/three-tier-dev-ec2-profile" [90m-> null[0m[0m
+      [31m-[0m[0m create_date = "2026-11-18T09:33:17Z" [90m-> null[0m[0m
+      [31m-[0m[0m id          = "three-tier-dev-ec2-profile" [90m-> null[0m[0m
+      [31m-[0m[0m name        = "three-tier-dev-ec2-profile" [90m-> null[0m[0m
+      [31m-[0m[0m path        = "/" [90m-> null[0m[0m
+      [31m-[0m[0m role        = "three-tier-dev-ec2-role" [90m-> null[0m[0m
+      [31m-[0m[0m tags        = {} [90m-> null[0m[0m
+      [31m-[0m[0m tags_all    = {} [90m-> null[0m[0m
+      [31m-[0m[0m unique_id   = "AIPA5G6AKYJCRNSZTE23R" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_iam_role.ec2[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_role" "ec2" {
+      [31m-[0m[0m arn                   = "arn:aws:iam::908252070469:role/three-tier-dev-ec2-role" [90m-> null[0m[0m
+      [31m-[0m[0m assume_role_policy    = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action    = "sts:AssumeRole"
+                      [31m-[0m[0m Effect    = "Allow"
+                      [31m-[0m[0m Principal = {
+                          [31m-[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m create_date           = "2026-11-18T09:33:15Z" [90m-> null[0m[0m
+      [31m-[0m[0m force_detach_policies = false [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "three-tier-dev-ec2-role" [90m-> null[0m[0m
+      [31m-[0m[0m managed_policy_arns   = [
+          [31m-[0m[0m "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m max_session_duration  = 3600 [90m-> null[0m[0m
+      [31m-[0m[0m name                  = "three-tier-dev-ec2-role" [90m-> null[0m[0m
+      [31m-[0m[0m path                  = "/" [90m-> null[0m[0m
+      [31m-[0m[0m tags                  = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all              = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-ec2-role"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m unique_id             = "AROA5G6AKYJC43ECK7IPL" [90m-> null[0m[0m
+        [90m# (3 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_iam_role_policy_attachment.ec2_ssm[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_role_policy_attachment" "ec2_ssm" {
+      [31m-[0m[0m id         = "three-tier-dev-ec2-role-20261118093317047000000001" [90m-> null[0m[0m
+      [31m-[0m[0m policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore" [90m-> null[0m[0m
+      [31m-[0m[0m role       = "three-tier-dev-ec2-role" [90m-> null[0m[0m
+    }
+
+[1m  # aws_instance.web["web-1"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_instance" "web" {
+      [31m-[0m[0m ami                                  = "ami-009a37f62c7ea3f0a" [90m-> null[0m[0m
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:ap-south-1:908252070469:instance/i-0c2a8f2f0b49d6d7c" [90m-> null[0m[0m
+      [31m-[0m[0m associate_public_ip_address          = true [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                    = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m cpu_core_count                       = 1 [90m-> null[0m[0m
+      [31m-[0m[0m cpu_threads_per_core                 = 2 [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_stop                     = false [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_termination              = false [90m-> null[0m[0m
+      [31m-[0m[0m ebs_optimized                        = false [90m-> null[0m[0m
+      [31m-[0m[0m get_password_data                    = false [90m-> null[0m[0m
+      [31m-[0m[0m hibernation                          = false [90m-> null[0m[0m
+      [31m-[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile" [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "i-0c2a8f2f0b49d6d7c" [90m-> null[0m[0m
+      [31m-[0m[0m instance_initiated_shutdown_behavior = "stop" [90m-> null[0m[0m
+      [31m-[0m[0m instance_state                       = "running" [90m-> null[0m[0m
+      [31m-[0m[0m instance_type                        = "t3.micro" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_address_count                   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_addresses                       = [] [90m-> null[0m[0m
+      [31m-[0m[0m monitoring                           = false [90m-> null[0m[0m
+      [31m-[0m[0m placement_partition_number           = 0 [90m-> null[0m[0m
+      [31m-[0m[0m primary_network_interface_id         = "eni-0cec6facf6003f433" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns                          = "ip-10-0-1-138.ap-south-1.compute.internal" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip                           = "10.0.1.138" [90m-> null[0m[0m
+      [31m-[0m[0m public_dns                           = "ec2-3-110-81-93.ap-south-1.compute.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m public_ip                            = "3.110.81.93" [90m-> null[0m[0m
+      [31m-[0m[0m secondary_private_ips                = [] [90m-> null[0m[0m
+      [31m-[0m[0m security_groups                      = [] [90m-> null[0m[0m
+      [31m-[0m[0m source_dest_check                    = true [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                            = "subnet-047d7abc6cdc0c434" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Role"        = "web"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Role"        = "web"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tenancy                              = "default" [90m-> null[0m[0m
+      [31m-[0m[0m user_data                            = "5b7bafc2f7085d358dc603eb8191aaa5e9cebd1f" [90m-> null[0m[0m
+      [31m-[0m[0m user_data_replace_on_change          = false [90m-> null[0m[0m
+      [31m-[0m[0m vpc_security_group_ids               = [
+          [31m-[0m[0m "sg-077355ccbf35a89b6",
+        ] [90m-> null[0m[0m
+        [90m# (7 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m capacity_reservation_specification {
+          [31m-[0m[0m capacity_reservation_preference = "open" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m cpu_options {
+          [31m-[0m[0m core_count       = 1 [90m-> null[0m[0m
+          [31m-[0m[0m threads_per_core = 2 [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m credit_specification {
+          [31m-[0m[0m cpu_credits = "unlimited" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m enclave_options {
+          [31m-[0m[0m enabled = false [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m maintenance_options {
+          [31m-[0m[0m auto_recovery = "default" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m metadata_options {
+          [31m-[0m[0m http_endpoint               = "enabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_protocol_ipv6          = "disabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_put_response_hop_limit = 1 [90m-> null[0m[0m
+          [31m-[0m[0m http_tokens                 = "optional" [90m-> null[0m[0m
+          [31m-[0m[0m instance_metadata_tags      = "disabled" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m private_dns_name_options {
+          [31m-[0m[0m enable_resource_name_dns_a_record    = false [90m-> null[0m[0m
+          [31m-[0m[0m enable_resource_name_dns_aaaa_record = false [90m-> null[0m[0m
+          [31m-[0m[0m hostname_type                        = "ip-name" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m root_block_device {
+          [31m-[0m[0m delete_on_termination = true [90m-> null[0m[0m
+          [31m-[0m[0m device_name           = "/dev/sda1" [90m-> null[0m[0m
+          [31m-[0m[0m encrypted             = true [90m-> null[0m[0m
+          [31m-[0m[0m iops                  = 3000 [90m-> null[0m[0m
+          [31m-[0m[0m kms_key_id            = "arn:aws:kms:ap-south-1:908252070469:key/bc849523-e43f-4469-940f-67c68667c088" [90m-> null[0m[0m
+          [31m-[0m[0m tags                  = {
+              [31m-[0m[0m "Environment" = "dev"
+              [31m-[0m[0m "ManagedBy"   = "terraform"
+              [31m-[0m[0m "Name"        = "three-tier-dev-web-1-root"
+              [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+              [31m-[0m[0m "Project"     = "three-tier"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m tags_all              = {
+              [31m-[0m[0m "Environment" = "dev"
+              [31m-[0m[0m "ManagedBy"   = "terraform"
+              [31m-[0m[0m "Name"        = "three-tier-dev-web-1-root"
+              [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+              [31m-[0m[0m "Project"     = "three-tier"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m throughput            = 125 [90m-> null[0m[0m
+          [31m-[0m[0m volume_id             = "vol-0c21d52e991bf56fb" [90m-> null[0m[0m
+          [31m-[0m[0m volume_size           = 20 [90m-> null[0m[0m
+          [31m-[0m[0m volume_type           = "gp3" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_instance.web["web-2"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_instance" "web" {
+      [31m-[0m[0m ami                                  = "ami-009a37f62c7ea3f0a" [90m-> null[0m[0m
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:ap-south-1:908252070469:instance/i-074790fc45c96d6e3" [90m-> null[0m[0m
+      [31m-[0m[0m associate_public_ip_address          = true [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                    = "ap-south-1b" [90m-> null[0m[0m
+      [31m-[0m[0m cpu_core_count                       = 1 [90m-> null[0m[0m
+      [31m-[0m[0m cpu_threads_per_core                 = 2 [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_stop                     = false [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_termination              = false [90m-> null[0m[0m
+      [31m-[0m[0m ebs_optimized                        = false [90m-> null[0m[0m
+      [31m-[0m[0m get_password_data                    = false [90m-> null[0m[0m
+      [31m-[0m[0m hibernation                          = false [90m-> null[0m[0m
+      [31m-[0m[0m iam_instance_profile                 = "three-tier-dev-ec2-profile" [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "i-074790fc45c96d6e3" [90m-> null[0m[0m
+      [31m-[0m[0m instance_initiated_shutdown_behavior = "stop" [90m-> null[0m[0m
+      [31m-[0m[0m instance_state                       = "running" [90m-> null[0m[0m
+      [31m-[0m[0m instance_type                        = "t3.micro" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_address_count                   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_addresses                       = [] [90m-> null[0m[0m
+      [31m-[0m[0m monitoring                           = false [90m-> null[0m[0m
+      [31m-[0m[0m placement_partition_number           = 0 [90m-> null[0m[0m
+      [31m-[0m[0m primary_network_interface_id         = "eni-07bbc76f941f40842" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns                          = "ip-10-0-3-173.ap-south-1.compute.internal" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip                           = "10.0.3.173" [90m-> null[0m[0m
+      [31m-[0m[0m public_dns                           = "ec2-65-0-135-150.ap-south-1.compute.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m public_ip                            = "65.0.135.150" [90m-> null[0m[0m
+      [31m-[0m[0m secondary_private_ips                = [] [90m-> null[0m[0m
+      [31m-[0m[0m security_groups                      = [] [90m-> null[0m[0m
+      [31m-[0m[0m source_dest_check                    = true [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                            = "subnet-0e6024824e66f8f6d" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Role"        = "web"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Role"        = "web"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tenancy                              = "default" [90m-> null[0m[0m
+      [31m-[0m[0m user_data                            = "11826c98ec42cd380fbdbac3c1e750e76b8db4de" [90m-> null[0m[0m
+      [31m-[0m[0m user_data_replace_on_change          = false [90m-> null[0m[0m
+      [31m-[0m[0m vpc_security_group_ids               = [
+          [31m-[0m[0m "sg-077355ccbf35a89b6",
+        ] [90m-> null[0m[0m
+        [90m# (7 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m capacity_reservation_specification {
+          [31m-[0m[0m capacity_reservation_preference = "open" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m cpu_options {
+          [31m-[0m[0m core_count       = 1 [90m-> null[0m[0m
+          [31m-[0m[0m threads_per_core = 2 [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m credit_specification {
+          [31m-[0m[0m cpu_credits = "unlimited" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m enclave_options {
+          [31m-[0m[0m enabled = false [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m maintenance_options {
+          [31m-[0m[0m auto_recovery = "default" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m metadata_options {
+          [31m-[0m[0m http_endpoint               = "enabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_protocol_ipv6          = "disabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_put_response_hop_limit = 1 [90m-> null[0m[0m
+          [31m-[0m[0m http_tokens                 = "optional" [90m-> null[0m[0m
+          [31m-[0m[0m instance_metadata_tags      = "disabled" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m private_dns_name_options {
+          [31m-[0m[0m enable_resource_name_dns_a_record    = false [90m-> null[0m[0m
+          [31m-[0m[0m enable_resource_name_dns_aaaa_record = false [90m-> null[0m[0m
+          [31m-[0m[0m hostname_type                        = "ip-name" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m root_block_device {
+          [31m-[0m[0m delete_on_termination = true [90m-> null[0m[0m
+          [31m-[0m[0m device_name           = "/dev/sda1" [90m-> null[0m[0m
+          [31m-[0m[0m encrypted             = true [90m-> null[0m[0m
+          [31m-[0m[0m iops                  = 3000 [90m-> null[0m[0m
+          [31m-[0m[0m kms_key_id            = "arn:aws:kms:ap-south-1:908252070469:key/bc849523-e43f-4469-940f-67c68667c088" [90m-> null[0m[0m
+          [31m-[0m[0m tags                  = {
+              [31m-[0m[0m "Environment" = "dev"
+              [31m-[0m[0m "ManagedBy"   = "terraform"
+              [31m-[0m[0m "Name"        = "three-tier-dev-web-2-root"
+              [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+              [31m-[0m[0m "Project"     = "three-tier"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m tags_all              = {
+              [31m-[0m[0m "Environment" = "dev"
+              [31m-[0m[0m "ManagedBy"   = "terraform"
+              [31m-[0m[0m "Name"        = "three-tier-dev-web-2-root"
+              [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+              [31m-[0m[0m "Project"     = "three-tier"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m throughput            = 125 [90m-> null[0m[0m
+          [31m-[0m[0m volume_id             = "vol-0f1b754f7415be69e" [90m-> null[0m[0m
+          [31m-[0m[0m volume_size           = 20 [90m-> null[0m[0m
+          [31m-[0m[0m volume_type           = "gp3" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_internet_gateway.main[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_internet_gateway" "main" {
+      [31m-[0m[0m arn      = "arn:aws:ec2:ap-south-1:908252070469:internet-gateway/igw-034c3439efbdd4d11" [90m-> null[0m[0m
+      [31m-[0m[0m id       = "igw-034c3439efbdd4d11" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m tags     = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-igw"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-igw"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id   = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.private[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table" "private" {
+      [31m-[0m[0m arn              = "arn:aws:ec2:ap-south-1:908252070469:route-table/rtb-0d08b6340da723db7" [90m-> null[0m[0m
+      [31m-[0m[0m id               = "rtb-0d08b6340da723db7" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id         = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m propagating_vgws = [] [90m-> null[0m[0m
+      [31m-[0m[0m route            = [] [90m-> null[0m[0m
+      [31m-[0m[0m tags             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all         = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-rt-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id           = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.private[1][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table" "private" {
+      [31m-[0m[0m arn              = "arn:aws:ec2:ap-south-1:908252070469:route-table/rtb-07dd80f74701cde9c" [90m-> null[0m[0m
+      [31m-[0m[0m id               = "rtb-07dd80f74701cde9c" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id         = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m propagating_vgws = [] [90m-> null[0m[0m
+      [31m-[0m[0m route            = [] [90m-> null[0m[0m
+      [31m-[0m[0m tags             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all         = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-rt-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id           = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.public[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table" "public" {
+      [31m-[0m[0m arn              = "arn:aws:ec2:ap-south-1:908252070469:route-table/rtb-011ee88a70964c328" [90m-> null[0m[0m
+      [31m-[0m[0m id               = "rtb-011ee88a70964c328" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id         = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m propagating_vgws = [] [90m-> null[0m[0m
+      [31m-[0m[0m route            = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_block                 = "0.0.0.0/0"
+              [31m-[0m[0m gateway_id                 = "igw-034c3439efbdd4d11"
+                [90m# (11 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m tags             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all         = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-rt"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id           = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table_association.private[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "private" {
+      [31m-[0m[0m id             = "rtbassoc-0b3ceee56579c69f8" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-0d08b6340da723db7" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-0686888a917cc3fe0" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.private[1][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "private" {
+      [31m-[0m[0m id             = "rtbassoc-03fd56288543029ba" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-07dd80f74701cde9c" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-06bb924f0cb18ae76" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public" {
+      [31m-[0m[0m id             = "rtbassoc-0a356f0a1db5e73b0" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-011ee88a70964c328" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-047d7abc6cdc0c434" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public[1][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public" {
+      [31m-[0m[0m id             = "rtbassoc-0db108b34471118ce" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-011ee88a70964c328" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-0e6024824e66f8f6d" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket" "assets" {
+      [31m-[0m[0m arn                         = "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m bucket                      = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_domain_name          = "three-tier-assets-terraform-3tier-mohammad.s3.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_regional_domain_name = "three-tier-assets-terraform-3tier-mohammad.s3.ap-south-1.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m force_destroy               = false [90m-> null[0m[0m
+      [31m-[0m[0m hosted_zone_id              = "Z11RGJOFQNVJUP" [90m-> null[0m[0m
+      [31m-[0m[0m id                          = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m object_lock_enabled         = false [90m-> null[0m[0m
+      [31m-[0m[0m policy                      = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action    = "s3:*"
+                      [31m-[0m[0m Condition = {
+                          [31m-[0m[0m Bool = {
+                              [31m-[0m[0m "aws:SecureTransport" = "false"
+                            }
+                        }
+                      [31m-[0m[0m Effect    = "Deny"
+                      [31m-[0m[0m Principal = "*"
+                      [31m-[0m[0m Resource  = [
+                          [31m-[0m[0m "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad",
+                          [31m-[0m[0m "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad/*",
+                        ]
+                      [31m-[0m[0m Sid       = "DenyInsecureTransport"
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m region                      = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m request_payer               = "BucketOwner" [90m-> null[0m[0m
+      [31m-[0m[0m tags                        = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                    = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-assets-terraform-3tier-mohammad"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+        [90m# (2 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m grant {
+          [31m-[0m[0m id          = "57d94bb62b265c3feebf0056d3bfac9ddbb091977af2efbf34d92cd53f882b8d" [90m-> null[0m[0m
+          [31m-[0m[0m permissions = [
+              [31m-[0m[0m "FULL_CONTROL",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m type        = "CanonicalUser" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m lifecycle_rule {
+          [31m-[0m[0m abort_incomplete_multipart_upload_days = 0 [90m-> null[0m[0m
+          [31m-[0m[0m enabled                                = true [90m-> null[0m[0m
+          [31m-[0m[0m id                                     = "expire-noncurrent-versions" [90m-> null[0m[0m
+          [31m-[0m[0m tags                                   = {} [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+
+          [31m-[0m[0m noncurrent_version_expiration {
+              [31m-[0m[0m days = 30 [90m-> null[0m[0m
+            }
+        }
+
+      [31m-[0m[0m server_side_encryption_configuration {
+          [31m-[0m[0m rule {
+              [31m-[0m[0m bucket_key_enabled = false [90m-> null[0m[0m
+
+              [31m-[0m[0m apply_server_side_encryption_by_default {
+                  [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                    [90m# (1 unchanged attribute hidden)[0m[0m
+                }
+            }
+        }
+
+      [31m-[0m[0m versioning {
+          [31m-[0m[0m enabled    = true [90m-> null[0m[0m
+          [31m-[0m[0m mfa_delete = false [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_s3_bucket_lifecycle_configuration.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_lifecycle_configuration" "assets" {
+      [31m-[0m[0m bucket                                 = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m id                                     = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m transition_default_minimum_object_size = "all_storage_classes_128K" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m rule {
+          [31m-[0m[0m id     = "expire-noncurrent-versions" [90m-> null[0m[0m
+          [31m-[0m[0m status = "Enabled" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+
+          [31m-[0m[0m filter {
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+
+          [31m-[0m[0m noncurrent_version_expiration {
+              [31m-[0m[0m noncurrent_days = 30 [90m-> null[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_policy.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_policy" "assets" {
+      [31m-[0m[0m bucket = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m id     = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m policy = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action    = "s3:*"
+                      [31m-[0m[0m Condition = {
+                          [31m-[0m[0m Bool = {
+                              [31m-[0m[0m "aws:SecureTransport" = "false"
+                            }
+                        }
+                      [31m-[0m[0m Effect    = "Deny"
+                      [31m-[0m[0m Principal = "*"
+                      [31m-[0m[0m Resource  = [
+                          [31m-[0m[0m "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad",
+                          [31m-[0m[0m "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad/*",
+                        ]
+                      [31m-[0m[0m Sid       = "DenyInsecureTransport"
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+    }
+
+[1m  # aws_s3_bucket_public_access_block.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_public_access_block" "assets" {
+      [31m-[0m[0m block_public_acls       = true [90m-> null[0m[0m
+      [31m-[0m[0m block_public_policy     = true [90m-> null[0m[0m
+      [31m-[0m[0m bucket                  = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m ignore_public_acls      = true [90m-> null[0m[0m
+      [31m-[0m[0m restrict_public_buckets = true [90m-> null[0m[0m
+    }
+
+[1m  # aws_s3_bucket_server_side_encryption_configuration.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
+      [31m-[0m[0m bucket                = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m rule {
+          [31m-[0m[0m bucket_key_enabled = false [90m-> null[0m[0m
+
+          [31m-[0m[0m apply_server_side_encryption_by_default {
+              [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_versioning.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_versioning" "assets" {
+      [31m-[0m[0m bucket                = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m versioning_configuration {
+          [31m-[0m[0m status     = "Enabled" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+    }
+
+[1m  # aws_security_group.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_security_group" "web" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1:908252070469:security-group/sg-077355ccbf35a89b6" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "Tier 1 - SSH from admin, HTTP from anywhere" [90m-> null[0m[0m
+      [31m-[0m[0m egress                 = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "All outbound"
+              [31m-[0m[0m from_port        = 0
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "-1"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 0
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sg-077355ccbf35a89b6" [90m-> null[0m[0m
+      [31m-[0m[0m ingress                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "HTTP from anywhere"
+              [31m-[0m[0m from_port        = 80
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 80
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m name                   = "three-tier-dev-web-sg" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id               = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m revoke_rules_on_delete = false [90m-> null[0m[0m
+      [31m-[0m[0m tags                   = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-web-sg"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "1"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                 = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.private[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "private" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:908252070469:subnet/subnet-0686888a917cc3fe0" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.2.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-0686888a917cc3fe0" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = false [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.private[1][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "private" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:908252070469:subnet/subnet-06bb924f0cb18ae76" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1b" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az3" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.4.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-06bb924f0cb18ae76" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = false [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-private-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "public" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:908252070469:subnet/subnet-047d7abc6cdc0c434" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.1.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-047d7abc6cdc0c434" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-1"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public[1][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "public" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:908252070469:subnet/subnet-0e6024824e66f8f6d" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1b" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az3" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.3.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-0e6024824e66f8f6d" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-public-2"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+          [31m-[0m[0m "Tier"        = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_vpc.main[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc" "main" {
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:ap-south-1:908252070469:vpc/vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+      [31m-[0m[0m assign_generated_ipv6_cidr_block     = false [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                           = "10.0.0.0/16" [90m-> null[0m[0m
+      [31m-[0m[0m default_network_acl_id               = "acl-071c7d851d296614d" [90m-> null[0m[0m
+      [31m-[0m[0m default_route_table_id               = "rtb-0ca48483413148d12" [90m-> null[0m[0m
+      [31m-[0m[0m default_security_group_id            = "sg-0e1cff59ca2dcf1de" [90m-> null[0m[0m
+      [31m-[0m[0m dhcp_options_id                      = "dopt-02c9a29994be9e011" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_hostnames                 = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_support                   = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_network_address_usage_metrics = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+      [31m-[0m[0m instance_tenancy                     = "default" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_netmask_length                  = 0 [90m-> null[0m[0m
+      [31m-[0m[0m main_route_table_id                  = "rtb-0ca48483413148d12" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                             = "908252070469" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-vpc"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "terraform"
+          [31m-[0m[0m "Name"        = "three-tier-dev-vpc"
+          [31m-[0m[0m "Owner"       = "Mohammad Maaz"
+          [31m-[0m[0m "Project"     = "three-tier"
+        } [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 25 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m alb_dns_name       = "" [90m-> null[0m[0m
+  [31m-[0m[0m alb_url            = "" [90m-> null[0m[0m
+  [31m-[0m[0m app_instance_ids   = {} [90m-> null[0m[0m
+  [31m-[0m[0m deployment_summary = {
+      [31m-[0m[0m alb_enabled = false
+      [31m-[0m[0m alb_url     = [90mnull[0m[0m
+      [31m-[0m[0m app_count   = 0
+      [31m-[0m[0m db_enabled  = false
+      [31m-[0m[0m environment = "dev"
+      [31m-[0m[0m nat_enabled = false
+      [31m-[0m[0m region      = "ap-south-1"
+      [31m-[0m[0m web_count   = 2
+      [31m-[0m[0m web_urls    = {
+          [31m-[0m[0m web-1 = "http://3.110.81.93"
+          [31m-[0m[0m web-2 = "http://65.0.135.150"
+        }
+    } [90m-> null[0m[0m
+  [31m-[0m[0m private_subnet_ids = [
+      [31m-[0m[0m "subnet-0686888a917cc3fe0",
+      [31m-[0m[0m "subnet-06bb924f0cb18ae76",
+    ] [90m-> null[0m[0m
+  [31m-[0m[0m public_subnet_ids  = [
+      [31m-[0m[0m "subnet-047d7abc6cdc0c434",
+      [31m-[0m[0m "subnet-0e6024824e66f8f6d",
+    ] [90m-> null[0m[0m
+  [31m-[0m[0m s3_bucket_arn      = "arn:aws:s3:::three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+  [31m-[0m[0m s3_bucket_name     = "three-tier-assets-terraform-3tier-mohammad" [90m-> null[0m[0m
+  [31m-[0m[0m vpc_id             = "vpc-08c8ec61c754f7b74" [90m-> null[0m[0m
+  [31m-[0m[0m web_instance_ids   = {
+      [31m-[0m[0m web-1 = "i-0c2a8f2f0b49d6d7c"
+      [31m-[0m[0m web-2 = "i-074790fc45c96d6e3"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m web_public_ips     = {
+      [31m-[0m[0m web-1 = "3.110.81.93"
+      [31m-[0m[0m web-2 = "65.0.135.150"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m web_urls           = {
+      [31m-[0m[0m web-1 = "http://3.110.81.93"
+      [31m-[0m[0m web-2 = "http://65.0.135.150"
+    } [90m-> null[0m[0m
+[0m[1m
+Do you really want to destroy all resources?[0m
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1maws_route_table_association.private[1]: Destroying... [id=rtbassoc-03fd56288543029ba][0m[0m
+[0m[1maws_route_table_association.private[0]: Destroying... [id=rtbassoc-0b3ceee56579c69f8][0m[0m
+[0m[1maws_s3_bucket_policy.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_route_table_association.public[0]: Destroying... [id=rtbassoc-0a356f0a1db5e73b0][0m[0m
+[0m[1maws_iam_role_policy_attachment.ec2_ssm: Destroying... [id=three-tier-dev-ec2-role-20261118093317047000000001][0m[0m
+[0m[1maws_route_table_association.public[1]: Destroying... [id=rtbassoc-0db108b34471118ce][0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_instance.web["web-2"]: Destroying... [id=i-074790fc45c96d6e3][0m[0m
+[0m[1maws_instance.web["web-1"]: Destroying... [id=i-0c2a8f2f0b49d6d7c][0m[0m
+[0m[1maws_route_table_association.private[1]: Destruction complete after 0s[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Destruction complete after 0s[0m
+[0m[1maws_route_table_association.private[0]: Destruction complete after 0s[0m
+[0m[1maws_route_table_association.public[1]: Destruction complete after 0s[0m
+[0m[1maws_route_table_association.public[0]: Destruction complete after 0s[0m
+[0m[1maws_route_table.private[0]: Destroying... [id=rtb-0d08b6340da723db7][0m[0m
+[0m[1maws_route_table.private[1]: Destroying... [id=rtb-07dd80f74701cde9c][0m[0m
+[0m[1maws_subnet.private[1]: Destroying... [id=subnet-06bb924f0cb18ae76][0m[0m
+[0m[1maws_subnet.private[0]: Destroying... [id=subnet-0686888a917cc3fe0][0m[0m
+[0m[1maws_route_table.public: Destroying... [id=rtb-011ee88a70964c328][0m[0m
+[0m[1maws_s3_bucket_policy.assets: Destruction complete after 1s[0m
+[0m[1maws_s3_bucket_public_access_block.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_s3_bucket_lifecycle_configuration.assets: Destruction complete after 1s[0m
+[0m[1maws_s3_bucket_versioning.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_iam_role_policy_attachment.ec2_ssm: Destruction complete after 1s[0m
+[0m[1maws_subnet.private[0]: Destruction complete after 1s[0m
+[0m[1maws_subnet.private[1]: Destruction complete after 1s[0m
+[0m[1maws_s3_bucket_public_access_block.assets: Destruction complete after 0s[0m
+[0m[1maws_route_table.private[0]: Destruction complete after 1s[0m
+[0m[1maws_route_table.private[1]: Destruction complete after 1s[0m
+[0m[1maws_route_table.public: Destruction complete after 1s[0m
+[0m[1maws_internet_gateway.main: Destroying... [id=igw-034c3439efbdd4d11][0m[0m
+[0m[1maws_s3_bucket_versioning.assets: Destruction complete after 0s[0m
+[0m[1maws_s3_bucket.assets: Destroying... [id=three-tier-assets-terraform-3tier-mohammad][0m[0m
+[0m[1maws_s3_bucket.assets: Destruction complete after 1s[0m
+[0m[1maws_instance.web["web-2"]: Still destroying... [id=i-074790fc45c96d6e3, 00m10s elapsed][0m[0m
+[0m[1maws_instance.web["web-1"]: Still destroying... [id=i-0c2a8f2f0b49d6d7c, 00m10s elapsed][0m[0m
+[0m[1maws_internet_gateway.main: Still destroying... [id=igw-034c3439efbdd4d11, 00m10s elapsed][0m[0m
+[0m[1maws_instance.web["web-2"]: Still destroying... [id=i-074790fc45c96d6e3, 00m20s elapsed][0m[0m
+[0m[1maws_instance.web["web-1"]: Still destroying... [id=i-0c2a8f2f0b49d6d7c, 00m20s elapsed][0m[0m
+[0m[1maws_internet_gateway.main: Still destroying... [id=igw-034c3439efbdd4d11, 00m20s elapsed][0m[0m
+[0m[1maws_internet_gateway.main: Destruction complete after 28s[0m
+[0m[1maws_instance.web["web-2"]: Still destroying... [id=i-074790fc45c96d6e3, 00m30s elapsed][0m[0m
+[0m[1maws_instance.web["web-1"]: Still destroying... [id=i-0c2a8f2f0b49d6d7c, 00m30s elapsed][0m[0m
+[0m[1maws_instance.web["web-2"]: Destruction complete after 31s[0m
+[0m[1maws_instance.web["web-1"]: Destruction complete after 31s[0m
+[0m[1maws_subnet.public[1]: Destroying... [id=subnet-0e6024824e66f8f6d][0m[0m
+[0m[1maws_security_group.web: Destroying... [id=sg-077355ccbf35a89b6][0m[0m
+[0m[1maws_iam_instance_profile.ec2: Destroying... [id=three-tier-dev-ec2-profile][0m[0m
+[0m[1maws_subnet.public[0]: Destroying... [id=subnet-047d7abc6cdc0c434][0m[0m
+[0m[1maws_subnet.public[1]: Destruction complete after 0s[0m
+[0m[1maws_subnet.public[0]: Destruction complete after 0s[0m
+[0m[1maws_iam_instance_profile.ec2: Destruction complete after 1s[0m
+[0m[1maws_iam_role.ec2: Destroying... [id=three-tier-dev-ec2-role][0m[0m
+[0m[1maws_security_group.web: Destruction complete after 1s[0m
+[0m[1maws_vpc.main: Destroying... [id=vpc-08c8ec61c754f7b74][0m[0m
+[0m[1maws_vpc.main: Destruction complete after 1s[0m
+[0m[1maws_iam_role.ec2: Destruction complete after 1s[0m
+[0m[1m[32m
+Destroy complete! Resources: 25 destroyed.[0m
+[1m[7m%[27m[1m[0m                                                                                                                [0m[27m[24m[J[32mmohammad@mohammad[39m:[34m~/projects/terraform-aws-3tier[39m$ [K[?1h=[?2004h[1m[31me[0m[39m[0m[32me[32mx[39m[1m[31me[1m[31mx[1m[31mi[0m[39m[0m[32me[0m[32mx[0m[32mi[32mt[39m[?1l>[?2004l
+
+Script done on 2026-11-18 15:23:30+05:30 [COMMAND_EXIT_CODE="0"]

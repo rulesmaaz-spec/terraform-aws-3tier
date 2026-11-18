@@ -6,17 +6,18 @@ apt-get install -y nginx
 
 cat > /var/www/html/index.html <<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>${project_name} — ${environment}</title>
+  <meta charset="UTF-8">
+  <title>${project_name} - ${environment}</title>
   <style>
-    body { font-family: system-ui, sans-serif; margin: 3rem; background: #0f172a; color: #e2e8f0; }
-    h1   { color: #38bdf8; }
-    code { background: #1e293b; padding: 2px 6px; border-radius: 4px; }
+    body { font-family: system-ui, sans-serif; margin: 3rem; background: #ffffff; color: #000000; }
+    h1   { color: #000000; }
+    code { background: #f0f0f0; color: #000000; padding: 2px 6px; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <h1>Welcome to ${project_name} — ${environment}</h1>
+  <h1>Welcome to ${project_name} - ${environment}</h1>
   <p>Instance: <code>${instance_name}</code></p>
   <p>Hostname: <code>$(hostname)</code></p>
   <p>AZ: <code>${availability_zone}</code></p>

@@ -5,7 +5,7 @@ locals {
     Project     = var.project_name
     Environment = var.environment
     ManagedBy   = "terraform"
-    Owner       = "REPLACE-WITH-YOUR-NAME"
+    Owner       = "Mohammad Maaz"
   }
 
   s3_bucket_name = "${var.project_name}-assets-${var.bucket_name_suffix}"

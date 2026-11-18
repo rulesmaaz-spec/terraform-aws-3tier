@@ -23,11 +23,12 @@ deny[msg] {
 deny[msg] {
     r := input.resource_changes[_]
     r.type == "aws_s3_bucket"
-    not has_encryption
+    not bucket_has_encryption[r.address]
     msg := sprintf("S3 bucket %s has no encryption configuration", [r.address])
 }
 
-has_encryption {
-    some i
-    input.resource_changes[i].type == "aws_s3_bucket_server_side_encryption_configuration"
+bucket_has_encryption[bucket_address] {
+    enc := input.resource_changes[_]
+    enc.type == "aws_s3_bucket_server_side_encryption_configuration"
+    bucket_address := enc.change.after.bucket
 }

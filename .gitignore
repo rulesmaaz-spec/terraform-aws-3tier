@@ -1,0 +1,29 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+tfplan.json
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Backend disabled (when temporarily using local state)
+backend.tf.disabled
+terraform.tfstate*
+
+# Secrets / environment
+*.tfvars
+!terraform.tfvars.example
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

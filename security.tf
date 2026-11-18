@@ -4,13 +4,13 @@ resource "aws_security_group" "web" {
   description = "Tier 1 - SSH from admin, HTTP from anywhere"
   vpc_id      = aws_vpc.main.id
 
-  ingress {
-    description = "SSH from admin CIDR only"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.ssh_allowed_cidr]
-  }
+#  ingress {
+#    description = "SSH from admin CIDR only"
+#    from_port   = 22
+#    to_port     = 22
+#    protocol    = "tcp"
+#    cidr_blocks = [var.ssh_allowed_cidr]
+#  }
 
   ingress {
     description = "HTTP from anywhere"
